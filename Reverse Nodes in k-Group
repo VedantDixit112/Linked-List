@@ -1,0 +1,57 @@
+class Solution {
+    ListNode newnode=new ListNode(-1);
+    ListNode res=newnode;
+    public ListNode reverseKGroup(ListNode head, int k) {
+        if(head==null || head.next==null){
+            return head;
+        }
+        ListNode temp=head;
+        ListNode mid=null;
+        int i=1;
+        int count=0;
+        ListNode prev=head;
+        while(temp!=null){
+            if(i==k){
+                if(temp.next==null){
+                     mid=reverse(prev);
+                     cal(mid);
+                     prev=null;
+                     break;
+                }
+                head=temp.next;
+                temp.next=null;
+                mid=reverse(prev);
+                cal(mid);
+                temp=head;
+                prev=head;
+                i=1;
+            }
+            i++;
+            temp=temp.next;
+        }
+        while(prev!=null){
+            res.next=prev;
+            res=res.next;
+            prev=prev.next;
+        }
+        return newnode.next;
+    }
+    public ListNode reverse(ListNode head){
+        if(head==null || head.next==null){
+            return head;
+        }
+        ListNode temp=head.next;
+        ListNode val=reverse(temp);
+        temp.next=head;
+        head.next=null;
+        return val;
+    }
+    public void cal(ListNode head){
+        ListNode temp=head;
+        while(temp!=null){
+            res.next=temp;
+            temp=temp.next;
+            res=res.next;
+        }
+    }
+}
