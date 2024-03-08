@@ -1,0 +1,37 @@
+class Solution {
+    public Node copyRandomList(Node head) {
+        if(head==null){
+            return null;
+        }
+        Map<Node,Node>map=new HashMap<>();
+        Node curr=head;
+        Node prev=null;
+        Node nhead=null;
+        while(curr!=null){
+            Node temp=new Node(curr.val);
+            map.put(curr,temp);
+            if(nhead==null){
+                nhead=temp;
+                prev=nhead;
+            }
+            else{
+                prev.next=temp;
+                prev=temp;
+            }
+            curr=curr.next;
+        }
+        curr=head;
+        Node cr=nhead;
+        while(curr!=null){
+            if(curr.random==null){
+                cr.random=null;
+            }
+            else{
+                cr.random=map.get(curr.random);
+            }
+            cr=cr.next;
+            curr=curr.next;
+        }
+        return nhead;
+    }
+}
